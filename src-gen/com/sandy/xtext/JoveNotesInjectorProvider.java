@@ -31,14 +31,9 @@ public class JoveNotesInjectorProvider implements IInjectorProvider, IRegistryCo
 		return injector;
 	}
 
-	protected Injector internalCreateInjector() {
-		return new JoveNotesStandaloneSetup() {
-			@Override
-			public Injector createInjector() {
-				return Guice.createInjector(createRuntimeModule());
-			}
-		}.createInjectorAndDoEMFRegistration();
-	}
+    protected Injector internalCreateInjector() {
+        return new JoveNotesStandaloneSetup().createInjectorAndDoEMFRegistration();
+    }
 
 	protected JoveNotesRuntimeModule createRuntimeModule() {
 		// make it work also with Maven/Tycho and OSGI

@@ -8,10 +8,10 @@ import org.eclipse.xtext.junit4.IInjectorProvider;
 import com.google.inject.Injector;
 
 public class JoveNotesUiInjectorProvider implements IInjectorProvider {
-
+	
 	@Override
 	public Injector getInjector() {
 		return com.sandy.xtext.ui.internal.JoveNotesActivator.getInstance().getInjector("com.sandy.xtext.JoveNotes");
 	}
-
+	
 }

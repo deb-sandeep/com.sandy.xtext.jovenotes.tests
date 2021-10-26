@@ -3,12 +3,14 @@
  */
 package com.sandy.xtext;
 
-import org.eclipse.xtext.junit4.GlobalRegistries ;
-import org.eclipse.xtext.junit4.GlobalRegistries.GlobalStateMemento ;
-import org.eclipse.xtext.junit4.IInjectorProvider ;
-import org.eclipse.xtext.junit4.IRegistryConfigurator ;
+import org.eclipse.xtext.junit4.GlobalRegistries;
+import org.eclipse.xtext.junit4.GlobalRegistries.GlobalStateMemento;
+import org.eclipse.xtext.junit4.IInjectorProvider;
+import org.eclipse.xtext.junit4.IRegistryConfigurator;
 
-import com.google.inject.Injector ;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module ;
 
 public class JoveNotesInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
 
@@ -32,7 +34,12 @@ public class JoveNotesInjectorProvider implements IInjectorProvider, IRegistryCo
 	}
 
 	protected Injector internalCreateInjector() {
-		return new JoveNotesStandaloneSetup().createInjectorAndDoEMFRegistration();
+		return new JoveNotesStandaloneSetup() {
+			@Override
+			public Injector createInjector() {
+				return Guice.createInjector( (Module)createRuntimeModule());
+			}
+		}.createInjectorAndDoEMFRegistration();
 	}
 
 	protected JoveNotesRuntimeModule createRuntimeModule() {
